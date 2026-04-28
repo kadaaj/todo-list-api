@@ -1,6 +1,7 @@
 package com.gabriel.todolistapi.services;
 
 import com.gabriel.todolistapi.entities.Task;
+import com.gabriel.todolistapi.exceptions.ResourceNotFoundException;
 import com.gabriel.todolistapi.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class TaskService {
 
     public Task findById(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada"));
     }
 
     public void deleteTask(Long id) {
