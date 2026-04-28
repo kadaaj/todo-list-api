@@ -18,6 +18,22 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Task updateTask(Long id, Task taskUpdated) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+
+        task.setTitle(taskUpdated.getTitle());
+        task.setDescription(taskUpdated.getDescription());
+        task.setCompleted(taskUpdated.getCompleted());
+
+        return taskRepository.save(task);
+    }
+
+    public Task findById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+    }
+
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }

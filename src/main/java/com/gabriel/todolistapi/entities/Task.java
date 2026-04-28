@@ -1,6 +1,7 @@
 package com.gabriel.todolistapi.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +15,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O título é obrigatório")
     private String title;
 
+    @NotBlank(message = "A descrição é obrigatória")
     private String description;
 
     private Boolean completed;
