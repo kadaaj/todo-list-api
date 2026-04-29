@@ -19,9 +19,32 @@ public class JwtService {
 
         return Jwts.builder()
                 .subject(user.getEmail())
+                .claim("role", user.getRole())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(key)
                 .compact();
+    }
+
+    public String validateTokenAndGetEmail(String token) {
+        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+
+        return Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public String getRoleFromToken(String token) {
+        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+
+        return Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("role", String.class);
     }
 }

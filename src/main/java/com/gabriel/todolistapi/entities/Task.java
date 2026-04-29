@@ -1,5 +1,6 @@
 package com.gabriel.todolistapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -22,4 +23,9 @@ public class Task {
     private String description;
 
     private Boolean completed;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 }
